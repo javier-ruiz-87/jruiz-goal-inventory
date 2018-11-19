@@ -42,7 +42,7 @@ class ArticuloRepository extends ServiceEntityRepository
     }
 
     /**
-     * Buscamos artículos caducados por fecha
+     * Buscamos articulos caducados por fecha
      *
      * @return array
      */
@@ -56,34 +56,12 @@ class ArticuloRepository extends ServiceEntityRepository
             ;
     }
 
-    public function noDisponibleArticulo(Articulo $articulo)
-    {
-        $articulo->setDisponible(false);
-        $this->save($articulo);
-
-        return $articulo;
-    }
-
-    /**
-     * @param Articulo $articulo
-     *
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function caducarArticulo(Articulo $articulo)
-    {
-        $articulo->setCaducado(true);
-        $this->save($articulo);
-    }
-
-    /**
-     * @param $data
-     *
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function save($data)
+    public function save($data, $flush = true)
     {
         $this->_em->persist($data);
 
-        $this->_em->flush();
+        if ($flush) {
+            $this->_em->flush();
+        }
     }
 }

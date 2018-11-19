@@ -10,8 +10,13 @@
 namespace tests\Controller;
 
 use App\Entity\Articulo;
+use App\Exceptions\NoExisteArticuloException;
+use App\Repository\ArticuloRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class APIArticuloControllerTest
+ */
 class APIArticuloControllerTest extends WebTestCase
 {
     /**
@@ -27,17 +32,15 @@ class APIArticuloControllerTest extends WebTestCase
         $tipo = 'congelados';
 
         $articulo = new Articulo();
-
         $articulo->setNombre($nombre);
         $articulo->setTipo($tipo);
         $articulo->setFechaCaducidad($date);
         $articulo->setDisponible(true);
         $articulo->setCaducado(false);
 
-        $this->entityManager
-            ->getRepository(Articulo::class)
-            ->save($articulo)
-        ;
+        /** @var ArticuloRepository $articuloRepository */
+        $articuloRepository = $this->entityManager->getRepository(Articulo::class);
+        $articuloRepository->save($articulo);
 
         $client = static::createClient();
 
@@ -71,8 +74,6 @@ class APIArticuloControllerTest extends WebTestCase
             )
         );
 
-        $this->nombre = $nombre;
-
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }
 
@@ -84,17 +85,15 @@ class APIArticuloControllerTest extends WebTestCase
         $tipo = 'congelados';
 
         $articulo = new Articulo();
-
         $articulo->setNombre($nombre);
         $articulo->setTipo($tipo);
         $articulo->setFechaCaducidad($date);
         $articulo->setDisponible(true);
         $articulo->setCaducado(false);
 
-        $this->entityManager
-            ->getRepository(Articulo::class)
-            ->save($articulo)
-        ;
+        /** @var ArticuloRepository $articuloRepository */
+        $articuloRepository = $this->entityManager->getRepository(Articulo::class);
+        $articuloRepository->save($articulo);
 
         $client = static::createClient();
 
@@ -111,6 +110,9 @@ class APIArticuloControllerTest extends WebTestCase
 
     public function testExtractArticuloNotExists()
     {
+        //espera exception
+        $this->expectException(NoExisteArticuloexception::class);
+
         $client = static::createClient();
 
         $client->request(
@@ -121,9 +123,7 @@ class APIArticuloControllerTest extends WebTestCase
             )
         );
 
-        //espera exception
-        $this->expectException('App\Exceptions\NoExisteArticuloexception');
-//        $this->assertEquals(500, $client->getResponse()->getStatusCode());
+        $this->assertEquals(500, $client->getResponse()->getStatusCode());
     }
 
     /**

@@ -47,9 +47,13 @@ class ArticuloManager
         $this->entityRepository = $this->entityManager->getRepository(Articulo::class);
     }
 
-    public function save(Articulo $articulo)
+    public function save(Articulo $articulo, $flush = true)
     {
-        $this->entityRepository->save($articulo);
+        $this->entityManager->persist($articulo);
+
+        if ($flush) {
+            $this->entityManager->flush();
+        }
     }
 
     public function getArticuloByNombre($nombre)
@@ -59,7 +63,8 @@ class ArticuloManager
 
     public function noDisponibleArticulo(Articulo $articulo)
     {
-        $this->entityRepository->noDisponibleArticulo($articulo);
+        $articulo->setDisponible(false);
+        $this->save($articulo);
 
         $noDisponibleEvento = new ArticuloNoDisponibleEvent($articulo);
 
@@ -76,7 +81,7 @@ class ArticuloManager
 
     public function caducarArticulo(Articulo $articulo)
     {
-        $this->entityRepository->caducarArticulo($articulo);
+        $articulo->setCaducado(true);
 
         $caducarEvento = new ArticuloCaducarEvent($articulo);
 
@@ -84,5 +89,7 @@ class ArticuloManager
             ArticuloCaducarEvent::NAME,
             $caducarEvento
         );
+
+        $this->save($articulo);
     }
 }

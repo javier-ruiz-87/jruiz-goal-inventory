@@ -48,9 +48,12 @@ class SendNotificacionNoDisponibleListener implements EventSubscriberInterface
     }
 
     /**
-     * Envio de notificación puede ser envio de correo, SMS, etc. En este caso a una tabla de notificaciones
+     * Envio de notificación puede ser envio de correo, SMS, etc.
+     * En este caso a una tabla de notificaciones
      *
      * @param Articulo $articulo
+     *
+     * @throws
      */
     public function sendNotificacion(Articulo $articulo)
     {

@@ -25,6 +25,11 @@ class NotificacionRepository extends ServiceEntityRepository
         parent::__construct($registry, Notificacion::class);
     }
 
+    public function findByObjetoNombre($objetoNombre)
+    {
+        return $this->findOneBy(array('objetoNombre' => $objetoNombre));
+    }
+
     /**
      * @param $data
      *

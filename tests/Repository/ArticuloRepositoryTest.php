@@ -45,10 +45,10 @@ class ArticuloRepositoryTest extends KernelTestCase
         $tipo = 'pescados';
 
         $articulo = new Articulo();
-
         $articulo->setNombre($nombre);
         $articulo->setTipo($tipo);
         $articulo->setDisponible(true);
+        $articulo->setFechaCaducidad($date);
         $articulo->setCaducado(false);
 
         /** @var ArticuloRepository $repository */

@@ -24,7 +24,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class APIArticuloController extends Controller
 {
     /**
-     * Crear articulo del inventario. Ejecutar con Postman
+     * API para añadir un artículo al inventario
+     * Parametros por POST: nombre, tipo, fecha_caducidad
+     *
      * @Route("/articulo-nuevo", name="articulo_api_post", methods={"POST"})
      *
      * @param Request $request
@@ -63,6 +65,10 @@ class APIArticuloController extends Controller
 
 
     /**
+     * API para sacar un elemento del inventario por nombre.
+     * Deja de estar disponible.
+     * Se lanza un evento que envia una notificacion.
+     *
      * @Route("/articulo-extract", name="articulo_api_extract", methods={"POST"})
      *
      * @param Request $request
@@ -99,7 +105,8 @@ class APIArticuloController extends Controller
     }
 
     /**
-     * Lists all Articles.
+     * Lista todos los articulos disponibles.
+     *
      * @Route("/articulos-list", name="articulos_api_list", methods={"GET"})
      *
      * @return Response

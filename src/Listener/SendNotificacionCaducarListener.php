@@ -48,9 +48,12 @@ class SendNotificacionCaducarListener implements EventSubscriberInterface
     }
 
     /**
-     * Envio de notificación  puede ser envio de correo, SMS, etc. En este caso a la consola y a la tabla de notificaciones
+     * Envio de notificacion puede ser envio de correo, SMS, etc.
+     * En este caso a la consola y a la tabla de notificaciones
      *
      * @param Articulo $articulo
+     *
+     * @throws
      */
     public function sendNotificacion(Articulo $articulo)
     {

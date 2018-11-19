@@ -11,6 +11,9 @@ namespace App\Entity;
 
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 
+/**
+ * Class ArticuloTest
+ */
 class ArticuloTest extends TestCase
 {
     public function testConstructArticulo()
@@ -20,7 +23,6 @@ class ArticuloTest extends TestCase
         $fechaCaducidad = new \DateTime('now');
 
         $articulo = new Articulo();
-
         $articulo->setNombre($nombre);
         $articulo->setTipo($tipo);
         $articulo->setFechaCaducidad($fechaCaducidad);
