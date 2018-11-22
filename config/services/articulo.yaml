@@ -1,0 +1,7 @@
+services:
+    articulo.manager:
+        class: App\Manager\ArticuloManager
+        public: true
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - '@event_dispatcher'
