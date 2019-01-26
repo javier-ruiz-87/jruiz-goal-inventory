@@ -134,6 +134,7 @@ Podemos comprobar los resultados en la base de datos test.db3
 Nota: no se ha implementado seguridad como podría ser un sistema de alta de usuarios de API, token, api key... No lo incluyo en el código porque hubiera sido demasiado costoso en tiempo.
 
 
+#### TODO: meter pedidos y usuarios/shoppers como en lxlx market
 
 
 
